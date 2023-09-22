@@ -11,9 +11,9 @@ async OldToNewJson (xml) {
         "corpusName" : "",        
         "MaxCueNumber" : 0,
         "CatTrees" : [],
-        "MetadataSettings" : {},
-        "TagSettings" : {},
-        "Documents" : {},
+        "MetadataSettings" : [],
+        "TagSettings" : [],
+        "Documents" : [],
     }
 
     var SetMetadata = {
@@ -41,12 +41,12 @@ async OldToNewJson (xml) {
     var SetDoc = {
         "DocMetadata" : [],
         "DocContent" : {
-            "Paragraphs" : {},
-            "Aligns" : [],
-            "CommentAreas" : {
+            "Paragraphs" : [],
+            //"Aligns" : [],
+            /*"CommentAreas" : {
                 "Level" : "!Not Used!",
                 "comments" : [],
-            },
+            },*/
             "Metatags" : {
                 "indexing" : "!Not Used!",
                 "tags" : []
@@ -68,13 +68,14 @@ async OldToNewJson (xml) {
     var corpuses = etree.findall('./ThdlPrototypeExport/corpus');
     var etPageParameters = etree.findall('./ThdlPrototypeExport/corpus/PageParameters');
     var etMetaFields = etree.findall('./ThdlPrototypeExport/corpus/metadata_field_settings');
+    var etFeatAnal = etree.findall('./ThdlPrototypeExport/corpus/feature_analysis');
     var tmpEle;
     for (let i = 0; i < corpuses.length; i++) {
         SetCorpus["corpusName"] = corpuses[i].get('name');
         SetCorpus["MaxCueNumber"] = etPageParameters[i].findall('MaxCueItems')[0].get('Default');
         tmpEle = etPageParameters[i].findall('CorpusTrees/CatTree');
         if (tmpEle.length > 0) {
-            for (let j = 0; j < tmpEle.length; i++) {
+            for (let j = 0; j < tmpEle.length; j++) {
                 var tmpArr = new Array(6);
                 tmpArr[0] = tmpEle.get('Title');
                 tmpArr[1] = tmpEle.get('Spotlight');
@@ -85,13 +86,36 @@ async OldToNewJson (xml) {
                 SetCorpus["CatTrees"].append(tmpArr);
             }
         }
-        for (let j = 0; j < etMetaFields[i].length; i++) {
+
+        for (let j = 0; j < etMetaFields[i].length; j++) {
             SetMetadata['Name'] = etMetaFields[i][j].tag;
             SetMetadata['Display'] = etMetaFields[i][j].text;
             SetMetadata['ShowSpotlight'] = etMetaFields[i][j].get('show_spotlight') == 'Y' ? 'T' : 'F';
             SetMetadata['Order'] = etMetaFields[i][j].get('display_order');
-            SetCorpus["MetadataSettings"] = SetMetadata;
+            SetCorpus["MetadataSettings"].append(SetMetadata);
         }
+
+        tmpEle = etFeatAnal[i].findall('spotlight');
+        var tmpDict = {};
+        var tmpName = "";
+        for (let j = 0; j < tmpEle.length; j++) {
+            tmpName = tmpEle[j].get('sub_category') == '-' ? tmpEle[j].get('category') : tmpEle[j].get('category') + '/' + tmpEle[j].get('sub_category') ;
+            tmpDict[tmpName] = new Array(2);
+            tmpDict[tmpName][0] = tmpEle[j].get('display_order'); //Order
+            tmpDict[tmpName][1] = tmpEle[j].get('title'); //Display
+        }
+        
+        tmpEle = etFeatAnal[i].findall('tag');
+        for (let j = 0; j < tmpEle.length; j++) {
+            tmpName = tmpEle[j].get('default_sub_category') == '-' ? tmpEle[j].get('default_category') : tmpEle[j].get('default_category') + '/' + tmpEle[j].get('default_sub_category') ;
+            SetTag['Name'] = tmpEle[j].get('name');
+            SetTag['Order'] = tmpDict[tmpName]? tmpDict[tmpName][0] : 999;
+            SetTag['Display'] = tmpDict[tmpName]? tmpDict[tmpName][1] : SetTag['Name'];
+            SetTag['ShowSpotlight'] = tmpDict[tmpName]? 'T' : 'F';
+            SetCorpus["TagSettings"].append(SetTag);
+        }
+
+        
 
     }
 }
