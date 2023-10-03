@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<DocuXml>
+  <Corpus Name="紀" Order="1">
+    <Parameters>
+      <MaxCueNumber>2000</MaxCueNumber>
+      <HiddenPrefixDelim CueDelim=";">=</HiddenPrefixDelim>
+      <BreakLine>T</BreakLine>
+      <CorpusTrees>
+          <CatTree Title="來源志熱區樹" Spotlight="TA:Udef_HotZoneCattree/-" LeafDisplayFormat="%cue% (共 %cnt% 筆)" InternalDisplayFormat="%cue% (共 %cnt% 筆)" HideTextBeforeSymbol="否" OneToOne="false"/>
+          <CatTree Title="來源志類目樹" Spotlight="TA:Udef_SourceCategoryCattree/-" LeafDisplayFormat="%cue% (共 %cnt% 筆)" InternalDisplayFormat="%cue% (共 %cnt% 筆)" HideTextBeforeSymbol="否" OneToOne="false"/>
+      </CorpusTrees>
+    </Parameters>
+
+    <MetadataSettings>
+      <Metadata Name="compilation_vol" ShowSpotlight="T" ShowDocMeta="T" Order="1" Display="卷數" />
+      <Metadata Name="compilation_name" ShowSpotlight="T" ShowDocMeta="T" Order="2" Display="卷名" />
+      <Metadata Name="book_code" ShowSpotlight="T" ShowDocMeta="T" Order="3" Display="書名" />
+      <Metadata Name="user_defined_compilation_id" ShowSpotlight="T" ShowDocMeta="T" Order="4" Display="卷數" />
+      <Metadata Name="user_defined_compilation_name" ShowSpotlight="T" ShowDocMeta="T" Order="5" Display="卷名" />
+    </MetadataSettings>
+
+    <TagSettings>
+      <Tag Name="PersonName" ShowSpotlight="T" Order="1" Display="人名" />
+      <Tag Name="LocName" ShowSpotlight="T" Order="2" Display="地名" />
+      <Tag Name="BookName" ShowSpotlight="T" Order="3" Display="著作" />
+      <Tag Name="Dynasty" ShowSpotlight="T" Order="4" Display="朝代" />
+    </TagSettings>
+
+    <Documents>
+      <Document Index="tongzhi_001_02">
+        <DocTitle>真好的一個Title Anyway</DocTitle>
+        <DocMetadata>
+          <Metadata Name="compilation_vol">卷一</Metadata>
+          <Metadata Name="compilation_name">三皇紀第一</Metadata>
+          <Metadata Name="book_code">KR2d0006</Metadata>
+          <Metadata Name="udef_compilation_id">卷一</Metadata>
+          <Metadata Name="udef_compilation_name">三皇紀第一</Metadata>
+        </DocMetadata>
+        <DocAttachment>
+          <Attachment Caption="頁一" Order="1" Url="http://img.kanripo.org/general/skqs/wyg//WYG0372/WYG0372-0077a.png" />
+          <Attachment Caption="頁二" Order="2" Url="http://img.kanripo.org/general/skqs/wyg//WYG0372/WYG0372-0077b.png" />
+          <Attachment Caption="頁三" Order="3" Url="http://img.kanripo.org/general/skqs/wyg//WYG0372/WYG0372-0078a.png" />
+          <Attachment Caption="頁四" Order="4" Url="http://img.kanripo.org/general/skqs/wyg//WYG0372/WYG0372-0078b.png" />
+        </DocAttachment>
+        <DocContent>
+          <Paragraph Key="1" Title="卷首按語zzz" Aux="卷首按語，出自三皇紀第一。fff">
+            臣謹按，三皇<Tag Name="PersonName" RefId="dila_A008910" Term="三皇-伏羲氏">伏羲</Tag>但稱氏，<Tag Name="PersonName" RefId="dila_A006100" Term="三皇-神農氏">神農</Tag>始稱帝，<Tag Name="PersonName" RefId="dila_A002433" Term="五帝-帝堯">堯</Tag>、<Tag Name="PersonName" RefId="dila_A002434" Term="五帝-帝舜">舜</Tag>始稱國，自上古至<Tag Name="Dynasty" Term="夏">夏</Tag>、<Tag Name="Dynasty" Term="商">商</Tag>皆稱名，至<Tag Name="Dynasty" Term="周">周</Tag>始稱諡。而稱氏者，三皇以來未嘗廢也，年代則稱紀。〈自開闢至獲麟，凡二百七十六萬歲，分為十紀。〉厥初，生民穴居野處，聖人教之結巢以避蟲豸之害而食草木之實，故號<Tag Name="PersonName" Term="三皇-有巢氏">有巢氏</Tag>，亦曰<Tag Name="PersonName" Term="三皇-有巢氏">大巢氏</Tag>，亦謂之<Tag Name="PersonName" Term="三皇-有巢氏">始君</Tag>，言君臣之道於是乎始也。有天下百餘代，民知巢居，未知熟食，<Tag Name="PersonName" RefId="dila_A010289" Term="三皇-燧人氏">燧人氏</Tag>出焉，觀星辰而察五木，知空有火，麗木則明，故鑽木取火，教民以烹飪之利，號<Tag Name="PersonName" RefId="dila_A010289" Term="三皇-燧人氏">燧人氏</Tag>。以夫燧者，火所生也。時無文字，未有甲歷紀年，始作結繩之政而立傳教之，臺始為日中之市而興交易之道，亦謂之<Tag Name="PersonName" RefId="dila_A010289" Term="三皇-燧人氏">遂皇</Tag>。或言<Tag Name="PersonName" RefId="dila_A010289" Term="三皇-燧人氏">遂皇</Tag>持斗，機運轉之法以施政教，此亦欽若昊天以授民時之義也。三皇者，天皇、地皇、人皇是也。其說不經，無所取證。當取<Tag Name="PersonName" RefId="dila_A008910" Term="三皇-伏羲氏">伏羲</Tag>為天皇、<Tag Name="PersonName" RefId="dila_A006100" Term="三皇-神農氏">神農</Tag>為人皇，<Tag Name="PersonName" RefId="dila_A004009" Term="三皇-軒轅氏">黃帝</Tag>為地皇之說為正。〈其說出<Tag Name="BookName" Term="三皇太古書">三皇太古書</Tag>。然<Tag Name="PersonName" RefId="dila_A008910" Term="三皇-伏羲氏">太昊</Tag>以明天事，故曰<Tag Name="PersonName" RefId="dila_A008910" Term="三皇-伏羲氏">太昊</Tag>。<Tag Name="PersonName" RefId="dila_A006100" Term="三皇-神農氏">炎帝</Tag>以明民事，故曰<Tag Name="PersonName" RefId="dila_A006100" Term="三皇-神農氏">神農</Tag>。<Tag Name="PersonName" RefId="dila_A004009" Term="三皇-軒轅氏">黃帝</Tag>以明地事，故曰<Tag Name="PersonName" RefId="dila_A004009" Term="三皇-軒轅氏">黃帝</Tag>。此理甚明。〉<Tag Name="PersonName" RefId="dila_A008910" Term="三皇-伏羲氏">伏羲</Tag>作<Tag Name="BookName" Term="連山">連山</Tag>，<Tag Name="PersonName" RefId="dila_A006100" Term="三皇-神農氏">神農</Tag>作<Tag Name="BookName" Term="歸藏">歸藏</Tag>，<Tag Name="PersonName" RefId="dila_A004009" Term="三皇-軒轅氏">黃帝</Tag>作<Tag Name="BookName" Term="坤乾">坤乾</Tag>。<Tag Name="BookName" Term="易">易</Tag>之始自<Tag Name="PersonName" RefId="dila_A008910" Term="三皇-伏羲氏">伏羲</Tag>。三易之本自三皇，夏人因<Tag Name="BookName" Term="連山">連山</Tag>而作<Tag Name="BookName" Term="連山">連山</Tag>，商人因<Tag Name="BookName" Term="歸藏">歸藏</Tag>而作<Tag Name="BookName" Term="歸藏">歸藏</Tag>，周人因<Tag Name="BookName" Term="坤乾">坤乾</Tag>而作<Tag Name="BookName" Term="易">周易</Tag>。八卦具而六十四卦成。世言<Tag Name="PersonName" RefId="dila_A008910" Term="三皇-伏羲氏">伏羲</Tag>畫卦，<Tag Name="PersonName" RefId="dila_A002160" Term="周-文王">文王</Tag>重之，皆沿襲之言也。<Tag Name="BookName" Term="春秋左氏傳">傳</Tag>曰：「法始乎<Tag Name="PersonName" RefId="dila_A008910" Term="三皇-伏羲氏">伏羲</Tag>，言圖像書契於此乎始。」三皇五帝、三王之事蓋已久矣，臣之所志在於傳信其有，傳疑者則降面而書之，以備記載云。
+          </Paragraph>
+        </DocContent>
+      </Document>
+    </Documents>
+
+  </Corpus>
+</DocuXml>

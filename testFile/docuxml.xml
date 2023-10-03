@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<DocuXml>
+  <Corpus Name="${corpus_name}" Order="${corpus_order}">
+    <Parameters>
+      <MaxCueNumber>${display_number}</MaxCueNumber>
+      <HiddenPrefixDelim CueDelim="${cue_delimeter}">${delimeter}</HiddenPrefixDelim>
+      <BreakLine>${T/F}</BreakLine>
+      <!-- <CorpusTrees>
+        <CatTree Title="${tree_name}" Spotlight="PC:CAT"
+          LeafDisplayFormat="%cue% (共 %cnt% 件, 共 %groups% 案)"
+          InternalDisplayFormat="%cue% (共 %cnt% 件, 共 %groups% 案)" HideTextBeforeSymbol="" />
+      </CorpusTrees> -->
+    </Parameters>
+
+    <MetadataSettings>
+      <Metadata Name="${metadata_proper_name}" Display="${display_name}"
+        Type="${Text/Coordinates/Number/Hierarchy}" Order="${display_order}" ShowSpotlight="${T/F}"
+        ShowDocMeta="${T/F}" />
+    </MetadataSettings>
+
+    <TagSettings>
+      <Tag Name="${feature_proper_name}" Display="${display_name}" Order="${display_order}"
+        ShowSpotlight="${T/F}" />
+    </TagSettings>
+
+    <Documents>
+      <Document DocId="${document_id}">
+        <DocTitle> ${document_title} <Comment Type="${comment_type}" Text="${comment_text}"></Comment>
+        </DocTitle>
+
+        <DocMetadata>
+          <Metadata Name="${metadata_proper_name}">${metadata_value}</Metadata>
+        </DocMetadata>
+
+        <DocContent>
+          <Paragraph Key="${paragraph_key}" Title="${paragraph_title}" Aux="${paragraph_aux}">
+            <!-- Tag -->
+            <Tag Name="${tag_proper_name}" Term="${tag_term}" RefId="${tag_refid}"
+              Url="${tag_url}" Aux="${tag_aux}">${tag_content}</Tag>
+
+            <Annotation Aux="${annotation_aux}">${annotation_content}</Annotation>
+
+            <Comment Type="${comment_type}" Text="${comment_text}">${text}</Comment>
+          </Paragraph>
+
+          <!-- <AlignBegin Key="${align_key}" Name="${align_name}" RefId="${align_refid}"
+            Term="${align_term}" />
+          <AlignEnd Key="${align_key}" /> -->
+
+          <MetaTags Indexing="${T/F}">
+            <MetaTag Name="${metatag_proper_name}" Frequency="${metatag_frequency}">${metatag_value}</MetaTag>
+          </MetaTags>
+        </DocContent>
+
+        <DocAttachment>
+          <Attachment Caption="${attachment_caption}" Order="${attachment_order}"
+            Url="${attachment_url}" />
+        </DocAttachment>
+
+      </Document>
+    </Documents>
+
+  </Corpus>
+</DocuXml>

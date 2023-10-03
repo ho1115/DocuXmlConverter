@@ -1,62 +1,65 @@
 "use client";
-import react from 'react';
 
 var et = require('elementtree');
-
+var fs = require('fs')
 class NewToOld {
 
 async extractCatTree (CatTree) {
     var result = [];
-    for (let i = 0; i < CatTree.length; i++) {
+    var childs = CatTree._children
+    for (let i = 0; i < childs.length; i++) {
         var Arr = new Array(6);
-        Arr[0] = CatTree.get('Title');
-        Arr[1] = CatTree.get('Spotlight');
-        Arr[2] = CatTree.get('LeafDisplayFormat');
-        Arr[3] = CatTree.get('InternalDisplayFormat');
-        Arr[4] = CatTree.get('HideTextBeforeSymbol');
-        Arr[5] = CatTree.get('OneToOne');
-        result.append(Arr);
+        Arr[0] = childs[i].get('Title');
+        Arr[1] = childs[i].get('Spotlight');
+        Arr[2] = childs[i].get('LeafDisplayFormat');
+        Arr[3] = childs[i].get('InternalDisplayFormat');
+        Arr[4] = childs[i].get('HideTextBeforeSymbol');
+        Arr[5] = childs[i].get('OneToOne');
+        result.push(Arr);
     }
     return result;
 }
 
 async extractMetaSettings (etMetaSettings) {
-    var SetMetadata = {
-        "Name" : "",
-        "Type" : "Text",
-        "ShowSpotlight" : "",
-        "ShowDocMeta" : "T",
-        "Order" : "",
-        "Display" : ""
-    }
+
     var result = [];
-    for (let i = 0; i < etMetaSettings.length; i++) {
-        SetMetadata['Name'] = etMetaSettings[i].get("Name");
-        SetMetadata['Display'] = etMetaSettings[i].get("Display");
-        SetMetadata['ShowSpotlight'] = etMetaSettings[i].get("ShowSpotlight");
-        SetMetadata['Order'] = etMetaSettings[i].get("Order");
-        SetMetadata['Type'] = etMetaSettings[i].get("Type");
-        SetMetadata['ShowDocMeta'] = etMetaSettings[i].get("ShowDocMeta");
-        result.append(SetMetadata);
+    var childs = etMetaSettings._children
+    for (let i = 0; i < childs.length; i++) {
+        var SetMetadata = {
+            "Name" : "",
+            "Type" : "Text",
+            "ShowSpotlight" : "",
+            "ShowDocMeta" : "T",
+            "Order" : "",
+            "Display" : ""
+        }
+        SetMetadata['Name'] = childs[i].get("Name");
+        SetMetadata['Display'] = childs[i].get("Display");
+        SetMetadata['ShowSpotlight'] = childs[i].get("ShowSpotlight");
+        SetMetadata['Order'] = childs[i].get("Order");
+        SetMetadata['Type'] = childs[i].get("Type");
+        SetMetadata['ShowDocMeta'] = childs[i].get("ShowDocMeta");
+        result.push(SetMetadata);
     }
     return result;
 }
 
 async extractTagSettings (etTagSettings) {
-    var SetTag = {
-        "Name" : "",
-        "ShowSpotlight" : "",
-        "Order" : "",
-        "Display" : ""
-    }
+    
     var result = [];
-
-    for (let i = 0; i < etTagSettings.length; i++) {
-        SetTag['Name'] = etTagSettings[i].get('Name');
-        SetTag['Order'] = etTagSettings[i].get('Order');
-        SetTag['Display'] = etTagSettings[i].get('Display');
-        SetTag['ShowSpotlight'] = etTagSettings[i].get('ShowSpotlight');
-        result.append(SetTag);
+    var childs = etTagSettings._children
+    for (let i = 0; i < childs.length; i++) {
+        var SetTag = {
+            "Name" : "",
+            "ShowSpotlight" : "",
+            "Order" : "",
+            "Display" : ""
+        }
+        SetTag['Name'] = childs[i].get('Name');
+        SetTag['Order'] = childs[i].get('Order');
+        SetTag['Display'] = childs[i].get('Display');
+        SetTag['ShowSpotlight'] = childs[i].get('ShowSpotlight');
+        result.push(SetTag);
     }
 
     return result;
@@ -72,19 +75,19 @@ async extractParagraphs (paragraphs) {
             "Key" : "",
             "Title" : "",
             "Aux" : "",
-            "contents" : []        
+            "text" : "", 
+            "contents" : ""       
         }
 
-        SetPara["Key"] = paragraphs.get("Key");
-        var qus = paragraphs.get("Type");
+        SetPara["Key"] = paragraphs[i].get("Key");
+        var qus = paragraphs[i].get("Title");
         SetPara["Title"] = qus ? qus : "";
-        qus = paragraphs.get("Title");
+        qus = paragraphs[i].get("Aux");
         SetPara["Aux"] = qus ? qus : SetPara["Title"];
-        for (let j = 0; j < paragraphs[i].length; j++) {
-            if (paragraphs[i][j].tag == '') {//work not done
-            }
-            //work not done
-        }
+        var childs = paragraphs[i]._children
+        SetPara["contents"] = childs
+        SetPara["text"] = paragraphs[i].text;
+        result.push(SetPara)
         
     }
 
@@ -93,19 +96,21 @@ async extractParagraphs (paragraphs) {
 
 async extractMetadata (metadatas) {
     var result = [];
-    for (let i = 0; i < metadatas.length; i++) {result.append([docs[i].tag, docs[i].text]);}
+    for (let i = 0; i < metadatas.length; i++) {result.push([metadatas[i].get('Name'), metadatas[i].text]);}
     return result;
 }
 
 async extractDocAttachment (atts) {
     var result = [];
-    for (let i = 0; i < atts.length; i++) {result.append([atts[i].get("Caption"), atts[i].get("Order"), atts[i].get("Url")]);}
+    var childs = atts._children
+    for (let i = 0; i < childs.length; i++) {result.push([childs[i].get("Caption"), childs[i].get("Order"), childs[i].get("Url")]);}
     return result;
 }
 
 async extractMetaTags (Mtags) {
     var result = [];
-    for (let j = 0; j < Mtags.length; j++) {result.append([Mtags[j].get("Name"), Mtags[j].get("Frequency"), Mtags[j].text]);}
+    var childs = Mtags._children
+    for (let j = 0; j < childs.length; j++) {result.push([childs[j].get("Name"), childs[j].get("Frequency"),childs[j].text]);}
     return result;
 }
 
@@ -138,19 +143,21 @@ async extractDoc (docs) {
 
         SetDoc["DocTitle"] = docs[i].find("DocTitle").text;
         
-        SetDoc["DocMetadata"] = this.extractMetadata(docs[i].findall("./DocMetadata/Metadata"));
+        SetDoc["DocMetadata"] = await this.extractMetadata(docs[i].findall("./DocMetadata/Metadata"));
 
-        SetDoc["DocAttachment"] = this.extractDocAttachment(docs[i].find("DocAttachment"));
+        SetDoc["DocAttachment"] = await this.extractDocAttachment(docs[i].find("DocAttachment"));
 
         var Mtags = docs[i].find("./DocContent/MetaTags");
         
-        SetDoc["DocContent"]["Metatags"]["Indexing"] = Mtags.get('Indexing') == '1' ? 'F' : 'T';
-        SetDoc["DocContent"]["Metatags"]["tags"] = this.extractMetaTags(Mtags)
+        if (Mtags) {
+            SetDoc["DocContent"]["Metatags"]["Indexing"] = Mtags.get('Indexing') == '1' ? 'F' : 'T';
+            SetDoc["DocContent"]["Metatags"]["tags"] = await this.extractMetaTags(Mtags);
+        }
         
-        var Paras = docs[i].findall("./doc_content/Paragraph");
-        SetDoc["DocContent"]["Paragraphs"] = Paras.length > 0 ? this.extractParagraphs(Paras) : []; //work not done
+        var Paras = docs[i].findall("./DocContent/Paragraph");
+        SetDoc["DocContent"]["Paragraphs"] = Paras.length > 0 ? await this.extractParagraphs(Paras) : []; //work not done
         
-        result.append(SetDoc);
+        result.push(SetDoc);
     }
     return result;
 
@@ -175,7 +182,7 @@ async NewToOldJson (xml) {
     var outputJSON = {
         "corpuses" : []
     };
-    var corpuses = etree.findall('./DocuXml/corpus');
+    var corpuses = etree.findall('./Corpus');
 
     for (let i = 0; i < corpuses.length; i++) {
         var etParameters = corpuses[i].find("./Parameters");
@@ -191,19 +198,20 @@ async NewToOldJson (xml) {
         tmpCorpus["HiddenPrefixDelim"][1] = etParameters.find('HiddenPrefixDelim').text;
         tmpCorpus["HiddenPrefixDelim"][0] = etParameters.find('HiddenPrefixDelim').get("CueDelim");
         tmpCorpus["BreakLine"] = etParameters.find('BreakLine').text;
-        tmpCorpus["CatTrees"] = this.extractCatTree(etParameters.find('CorpusTrees'));
+        tmpCorpus["CatTrees"] = await this.extractCatTree(etParameters.find('CorpusTrees'));
 
-        tmpCorpus["MetadataSettings"] = this.extractMetaSettings(etMetaSettings);
+        tmpCorpus["MetadataSettings"] = await this.extractMetaSettings(etMetaSettings);
 
-        tmpCorpus["TagSettings"] = this.extractTagSettings(etTagSettings);
+        tmpCorpus["TagSettings"] = await this.extractTagSettings(etTagSettings);
 
-        var DocsRes = this.extractDoc(corpuses[i].findall("./Documents/Document"))
+        var DocsRes = await this.extractDoc(corpuses[i].findall("./Documents/Document"))
         if (DocsRes["error"]) {return DocsRes["error"];}
         else {tmpCorpus["Documents"] = DocsRes;}     
-        outputJSON["corpuses"].append(tmpCorpus);
+        outputJSON["corpuses"].push(tmpCorpus);
     }
+    return outputJSON;
 }
 
 }
 
-export default NewToOld;
+module.exports = NewToOld;
